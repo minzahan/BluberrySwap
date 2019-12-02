@@ -173,6 +173,14 @@
     <Compile Include="Migrations\201912020137031_InitialModel.Designer.cs">
       <DependentUpon>201912020137031_InitialModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912020401046_InitialModel1.cs" />
+    <Compile Include="Migrations\201912020401046_InitialModel1.Designer.cs">
+      <DependentUpon>201912020401046_InitialModel1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912020419480_AddedAddress.cs" />
+    <Compile Include="Migrations\201912020419480_AddedAddress.Designer.cs">
+      <DependentUpon>201912020419480_AddedAddress.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -273,6 +281,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201912020137031_InitialModel.resx">
       <DependentUpon>201912020137031_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912020401046_InitialModel1.resx">
+      <DependentUpon>201912020401046_InitialModel1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912020419480_AddedAddress.resx">
+      <DependentUpon>201912020419480_AddedAddress.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

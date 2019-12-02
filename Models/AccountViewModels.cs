@@ -81,8 +81,34 @@ namespace BlueberrySwap.Models
         public string ConfirmPassword { get; set; }
 
         [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Required]
         public string PhoneNumber { get; set; }
-        
+
+        [Required]
+        [Display(Name = "Street")]
+        public string street { get; set; }
+
+        [Required]
+        [Display(Name = "City")]
+        public string city { get; set; }
+
+        [Required]
+        [Display(Name = "State")]
+        public string state { get; set; }
+
+        [Required]
+        [Display(Name = "Zipcode")]
+        public string zipcode { get; set; }
+
+
+
     }
 
     public class ResetPasswordViewModel
