@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data;
+using System.Data.Entity;
 using System.Web;
 using System.Web.Mvc;
+using BlueberrySwap;
+using BlueberrySwap.Models;
 
 namespace BlueberrySwap.Controllers
 {
     public class HomeController : Controller
     {
-        [Authorize]
+        private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-            return View();
+            return View(db.Categories.ToList());
         }
 
         public ActionResult About()

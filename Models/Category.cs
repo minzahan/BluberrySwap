@@ -14,7 +14,7 @@ namespace BlueberrySwap
         {
             Items = new HashSet<Item>();
         }
-
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
