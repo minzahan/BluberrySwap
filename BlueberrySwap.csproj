@@ -169,26 +169,20 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Migrations\201912020137031_InitialModel.cs" />
-    <Compile Include="Migrations\201912020137031_InitialModel.Designer.cs">
-      <DependentUpon>201912020137031_InitialModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912020401046_InitialModel1.cs" />
-    <Compile Include="Migrations\201912020401046_InitialModel1.Designer.cs">
-      <DependentUpon>201912020401046_InitialModel1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912020419480_AddedAddress.cs" />
-    <Compile Include="Migrations\201912020419480_AddedAddress.Designer.cs">
-      <DependentUpon>201912020419480_AddedAddress.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912031917008_FromTheBeginning.cs" />
+    <Compile Include="Migrations\201912031917008_FromTheBeginning.Designer.cs">
+      <DependentUpon>201912031917008_FromTheBeginning.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -261,6 +255,16 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Movies\Random.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Delete.cshtml" />
+    <Content Include="Views\Categories\Details.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Items\Create.cshtml" />
+    <Content Include="Views\Items\Delete.cshtml" />
+    <Content Include="Views\Items\Details.cshtml" />
+    <Content Include="Views\Items\Edit.cshtml" />
+    <Content Include="Views\Items\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -279,14 +283,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201912020137031_InitialModel.resx">
-      <DependentUpon>201912020137031_InitialModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912020401046_InitialModel1.resx">
-      <DependentUpon>201912020401046_InitialModel1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912020419480_AddedAddress.resx">
-      <DependentUpon>201912020419480_AddedAddress.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201912031917008_FromTheBeginning.resx">
+      <DependentUpon>201912031917008_FromTheBeginning.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

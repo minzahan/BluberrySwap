@@ -5,11 +5,12 @@ namespace BlueberrySwap
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using BlueberrySwap.Models;
 
     [Table("Item")]
     public partial class Item
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
 
         [Required]
@@ -17,10 +18,6 @@ namespace BlueberrySwap
         public string name { get; set; }
 
         public double price { get; set; }
-
-        public int unit { get; set; }
-
-        public int author_id { get; set; }
 
         [Column(TypeName = "text")]
         public string description { get; set; }
@@ -32,11 +29,14 @@ namespace BlueberrySwap
         [Timestamp]
         public byte[] updated_at { get; set; }
 
-        public int category { get; set; }
+        public int CategoryID { get; set; }
+        public virtual Category Category { get; set; }
 
-        public virtual Category Category1 { get; set; }
+        public int UnitID { get; set; }
+        public virtual Unit Unit { get; set; }
 
-        public virtual Unit Unit1 { get; set; }
+        public int AuthorID { get; set; }
+        public virtual ApplicationUser Author { get; set; }
 
     }
 }
