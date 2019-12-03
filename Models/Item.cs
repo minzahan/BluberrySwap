@@ -30,14 +30,13 @@ namespace BlueberrySwap
         public byte[] updated_at { get; set; }
 
         public int CategoryID { get; set; }
-
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
 
         public int UnitID { get; set; }
-        public Unit Unit { get; set; }
+        public virtual Unit Unit { get; set; }
 
         public int AuthorID { get; set; }
-        public ApplicationUser Author { get; set; }
+        public virtual ApplicationUser Author { get; set; }
 
     }
 }

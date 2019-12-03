@@ -7,13 +7,13 @@ namespace BlueberrySwap.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddedAddress : IMigrationMetadata
+    public sealed partial class FromTheBeginning : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedAddress));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(FromTheBeginning));
         
         string IMigrationMetadata.Id
         {
-            get { return "201912020419480_AddedAddress"; }
+            get { return "201912031917008_FromTheBeginning"; }
         }
         
         string IMigrationMetadata.Source
