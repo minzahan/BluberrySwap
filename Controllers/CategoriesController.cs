@@ -47,7 +47,7 @@ namespace BlueberrySwap.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,name,icon")] Category category)
+        public ActionResult Create([Bind(Include = "name,icon")] Category category)
         {
             if (ModelState.IsValid)
             {

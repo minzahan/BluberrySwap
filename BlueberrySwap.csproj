@@ -186,6 +186,34 @@
     <Compile Include="Migrations\201912022004078_CategoryPrimaryKey.Designer.cs">
       <DependentUpon>201912022004078_CategoryPrimaryKey.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912022205571_CategoryAddIdentity.cs" />
+    <Compile Include="Migrations\201912022205571_CategoryAddIdentity.Designer.cs">
+      <DependentUpon>201912022205571_CategoryAddIdentity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912022222238_UpdateCategoryKey.cs" />
+    <Compile Include="Migrations\201912022222238_UpdateCategoryKey.Designer.cs">
+      <DependentUpon>201912022222238_UpdateCategoryKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912022224534_UpdateCategoryKey1.cs" />
+    <Compile Include="Migrations\201912022224534_UpdateCategoryKey1.Designer.cs">
+      <DependentUpon>201912022224534_UpdateCategoryKey1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912022228019_CheckCatId.cs" />
+    <Compile Include="Migrations\201912022228019_CheckCatId.Designer.cs">
+      <DependentUpon>201912022228019_CheckCatId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912022230148_CatIdentityBack.cs" />
+    <Compile Include="Migrations\201912022230148_CatIdentityBack.Designer.cs">
+      <DependentUpon>201912022230148_CatIdentityBack.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912031023535_AddUserFKToListing.cs" />
+    <Compile Include="Migrations\201912031023535_AddUserFKToListing.Designer.cs">
+      <DependentUpon>201912031023535_AddUserFKToListing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912031900446_ItemTable.cs" />
+    <Compile Include="Migrations\201912031900446_ItemTable.Designer.cs">
+      <DependentUpon>201912031900446_ItemTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -300,6 +328,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912022004078_CategoryPrimaryKey.resx">
       <DependentUpon>201912022004078_CategoryPrimaryKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912022205571_CategoryAddIdentity.resx">
+      <DependentUpon>201912022205571_CategoryAddIdentity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912022222238_UpdateCategoryKey.resx">
+      <DependentUpon>201912022222238_UpdateCategoryKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912022224534_UpdateCategoryKey1.resx">
+      <DependentUpon>201912022224534_UpdateCategoryKey1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912022228019_CheckCatId.resx">
+      <DependentUpon>201912022228019_CheckCatId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912022230148_CatIdentityBack.resx">
+      <DependentUpon>201912022230148_CatIdentityBack.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912031023535_AddUserFKToListing.resx">
+      <DependentUpon>201912031023535_AddUserFKToListing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912031900446_ItemTable.resx">
+      <DependentUpon>201912031900446_ItemTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
