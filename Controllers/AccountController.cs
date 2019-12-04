@@ -158,10 +158,10 @@ namespace BlueberrySwap.Controllers
                     PhoneNumber = model.PhoneNumber,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
-                    street = model.street,
-                    city = model.city,
-                    state = model.state,
-                    zipcode = model.zipcode
+                    Street = model.street,
+                    City = model.city,
+                    State = model.state,
+                    Zipcode = model.zipcode
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

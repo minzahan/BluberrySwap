@@ -15,10 +15,16 @@ namespace BlueberrySwap.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+
+
+        
         // GET: Items
-        public ActionResult Index()
+        public ActionResult Index(int categoryId)
         {
-            var items = db.Items.Include(i => i.Category).Include(i => i.Unit);
+            var items = db.Items.Include(i => i.Category).Include(i => i.Unit).
+                Where(i => i.CategoryID == categoryId);
+
+           
             return View(items.ToList());
         }
 

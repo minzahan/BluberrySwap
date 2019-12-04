@@ -26,7 +26,7 @@ namespace BlueberrySwap.Migrations
                         price = c.Double(nullable: false),
                         description = c.String(unicode: false, storeType: "text"),
                         created_at = c.DateTime(nullable: false),
-                        updated_at = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "timestamp"),
+                        updated_at = c.DateTime(nullable: false),
                         CategoryID = c.Int(nullable: false),
                         UnitID = c.Int(nullable: false),
                         AuthorID = c.Int(nullable: false),

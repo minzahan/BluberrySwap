@@ -15,6 +15,8 @@ namespace BlueberrySwap.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
+            //check if user is logged in
+            //
             return View(db.Categories.ToList());
         }
 
