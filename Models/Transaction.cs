@@ -8,12 +8,23 @@ namespace BlueberrySwap.Models
 {
 
 
-    public partial class Offer_Exchange
+    [Table("Transaction")]
+    public partial class Transaction
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [Column(name: "offer_exchange_id")]
-        public int OfferExchangeId { get; set; }
+        [Column(name: "transaction_id")]
+        public int TransactionId { get; set; }
+
+        [Column(name: "offer_id")]
+        public int OfferId { get; set; }
+
+        [Column(name: "accepted")]
+        public bool Accepted { get; set; }
+
+        [Required]
+        [Column(name: "rejection_reason")]
+        public string RejectionReason { get; set; }
 
         [Column(name: "created_at")]
         public DateTime CreatedAt { get; set; }
@@ -21,20 +32,6 @@ namespace BlueberrySwap.Models
         [Column(name: "updated_at")]
         public DateTime UpdatedAt { get; set; }
 
-        [Column(name: "exchange_item_id")]
-        public int ExchangeItemId { get; set; }
-
-        [Column(name: "exchange_item_qty")]
-        public double ExchangeItemQty { get; set; }
-
-        [Column(name: "exchange_item_unit_id")]
-        public int ExchangeItemUnitId { get; set; }
-
-
-        [Column("offer_id")]
-        public int OfferId { get; set; }
-
-        [Required]
         public virtual Offer Offer { get; set; }
     }
 }

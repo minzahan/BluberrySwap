@@ -1,0 +1,64 @@
+﻿@model IEnumerable<BlueberrySwap.Models.Offer_Cash>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Offer.OfferedByAuthorId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CashValue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Unit_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OfferId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Offer.OfferedByAuthorId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CashValue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Unit_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OfferId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.OfferCashId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.OfferCashId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.OfferCashId })
+        </td>
+    </tr>
+}
+
+</table>

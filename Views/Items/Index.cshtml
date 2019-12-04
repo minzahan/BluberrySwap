@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BlueberrySwap.Item>
+﻿@model IEnumerable<BlueberrySwap.Models.Item>
 
 @{
     ViewBag.Title = "Index";
@@ -19,8 +19,7 @@
             @Html.DisplayNameFor(model => model.Price)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.updated_at)
-        </th>
+            @Html.DisplayNameFor(model => model.UpdatedAt)
         <th>
             @Html.DisplayNameFor(model => model.Author.FirstName)
         </th>
@@ -37,7 +36,7 @@
             @Html.DisplayFor(modelItem => item.Price)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.updated_at)
+            @Html.DisplayFor(modelItem => item.UpdatedAt)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Author.FirstName)

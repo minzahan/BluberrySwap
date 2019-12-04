@@ -37,10 +37,9 @@ namespace BlueberrySwap.Models
     {
         public DbSet<Category> Categories { get; set; }
         public DbSet<Item> Items { get; set; }
-        public DbSet<Offer_Cash> OffersCash { get; set; }
-        public DbSet<Offer_Exchange> OffersExchange { get; set; }
-        public DbSet<Transaction_Cash> TransactionsCash { get; set; }
-        public DbSet<Transaction_Exchange> TransactionsExchange { get; set; }
+        public DbSet<Offer_Cash> CashOffers { get; set; }
+        public DbSet<Offer_Exchange> ExchangeOffers { get; set; }
+        
         public DbSet<Unit> Units { get; set; }
 
         public ApplicationDbContext()
@@ -52,5 +51,7 @@ namespace BlueberrySwap.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<BlueberrySwap.Models.Offer> Offers { get; set; }
     }
 }

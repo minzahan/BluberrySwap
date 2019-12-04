@@ -1,0 +1,70 @@
+﻿@model IEnumerable<BlueberrySwap.Models.Offer>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Offer_Cash.OfferCashId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Offer_Exchange.OfferExchangeId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OfferedByAuthorId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Qty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedAt)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Offer_Cash.OfferCashId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Offer_Exchange.OfferExchangeId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OfferedByAuthorId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Qty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedAt)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.OfferId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.OfferId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.OfferId })
+        </td>
+    </tr>
+}
+
+</table>

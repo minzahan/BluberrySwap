@@ -6,130 +6,116 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BlueberrySwap;
 using BlueberrySwap.Models;
 
 namespace BlueberrySwap.Controllers
 {
-    public class ItemsController : Controller
+    public class OfferCashController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-
-
-        
-        // GET: Items
-        public ActionResult Index(int categoryId)
+        // GET: OfferCash
+        public ActionResult Index()
         {
-            var items = db.Items.Include(i => i.Category).Include(i => i.Unit).
-                Where(i => i.CategoryID == categoryId);
-
-           
-            return View(items.ToList());
+            var cashOffers = db.CashOffers.Include(o => o.Offer);
+            return View(cashOffers.ToList());
         }
 
-        // GET: Items/Details/5
+        // GET: OfferCash/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Item item = db.Items.Find(id);
-            if (item == null)
+            Offer_Cash offer_Cash = db.CashOffers.Find(id);
+            if (offer_Cash == null)
             {
                 return HttpNotFound();
             }
-            return View(item);
+            return View(offer_Cash);
         }
 
-        // GET: Items/Create
+        // GET: OfferCash/Create
         public ActionResult Create()
         {
-            ViewBag.CategoryID = new SelectList(db.Categories, "id", "name");
-            ViewBag.UnitID = new SelectList(db.Units, "id", "name");
+            ViewBag.OfferCashId = new SelectList(db.Offers, "OfferId", "OfferedByAuthorId");
             return View();
         }
 
-        // POST: Items/Create
+        // POST: OfferCash/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,name,price,description,created_at,updated_at,CategoryID,UnitID,AuthorID")] Item item)
+        public ActionResult Create([Bind(Include = "OfferCashId,CashValue,CreatedAt,UpdatedAt,Unit_id,OfferId")] Offer_Cash offer_Cash)
         {
             if (ModelState.IsValid)
             {
-                item.CreatedAt= DateTime.Now;
-                item.UpdatedAt = DateTime.Now;
-                
-                db.Items.Add(item);
+                db.CashOffers.Add(offer_Cash);
                 db.SaveChanges();
-                return RedirectToAction("Index", routeValues:new {categoryId = item.CategoryID});
+                return RedirectToAction("Index");
             }
 
-            ViewBag.CategoryID = new SelectList(db.Categories, "id", "name", item.CategoryID);
-            ViewBag.UnitID = new SelectList(db.Units, "id", "name", item.UnitID);
-            return View(item);
+            ViewBag.OfferCashId = new SelectList(db.Offers, "OfferId", "OfferedByAuthorId", offer_Cash.OfferCashId);
+            return View(offer_Cash);
         }
 
-        // GET: Items/Edit/5
+        // GET: OfferCash/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Item item = db.Items.Find(id);
-            if (item == null)
+            Offer_Cash offer_Cash = db.CashOffers.Find(id);
+            if (offer_Cash == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CategoryID = new SelectList(db.Categories, "id", "name", item.CategoryID);
-            ViewBag.UnitID = new SelectList(db.Units, "id", "name", item.UnitID);
-            return View(item);
+            ViewBag.OfferCashId = new SelectList(db.Offers, "OfferId", "OfferedByAuthorId", offer_Cash.OfferCashId);
+            return View(offer_Cash);
         }
 
-        // POST: Items/Edit/5
+        // POST: OfferCash/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,name,price,description,created_at,updated_at,CategoryID,UnitID,AuthorID")] Item item)
+        public ActionResult Edit([Bind(Include = "OfferCashId,CashValue,CreatedAt,UpdatedAt,Unit_id,OfferId")] Offer_Cash offer_Cash)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(item).State = EntityState.Modified;
+                db.Entry(offer_Cash).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryID = new SelectList(db.Categories, "id", "name", item.CategoryID);
-            ViewBag.UnitID = new SelectList(db.Units, "id", "name", item.UnitID);
-            return View(item);
+            ViewBag.OfferCashId = new SelectList(db.Offers, "OfferId", "OfferedByAuthorId", offer_Cash.OfferCashId);
+            return View(offer_Cash);
         }
 
-        // GET: Items/Delete/5
+        // GET: OfferCash/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Item item = db.Items.Find(id);
-            if (item == null)
+            Offer_Cash offer_Cash = db.CashOffers.Find(id);
+            if (offer_Cash == null)
             {
                 return HttpNotFound();
             }
-            return View(item);
+            return View(offer_Cash);
         }
 
-        // POST: Items/Delete/5
+        // POST: OfferCash/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Item item = db.Items.Find(id);
-            db.Items.Remove(item);
+            Offer_Cash offer_Cash = db.CashOffers.Find(id);
+            db.CashOffers.Remove(offer_Cash);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

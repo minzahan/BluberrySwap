@@ -1,4 +1,4 @@
-﻿@model BlueberrySwap.Item
+﻿@model BlueberrySwap.Models.Item
 
 @{
     ViewBag.Title = "Details";
@@ -12,72 +12,67 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Category.name)
+            @Html.DisplayNameFor(model => model.Category.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Category.name)
+            @Html.DisplayFor(model => model.Category.Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Unit.name)
+            @Html.DisplayNameFor(model => model.Unit.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Unit.name)
+            @Html.DisplayFor(model => model.Unit.Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.name)
+            @Html.DisplayNameFor(model => model.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.name)
+            @Html.DisplayFor(model => model.Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.price)
+            @Html.DisplayNameFor(model => model.Price)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.price)
+            @Html.DisplayFor(model => model.Price)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.description)
+            @Html.DisplayNameFor(model => model.Description)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.description)
+            @Html.DisplayFor(model => model.Description)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.created_at)
+            @Html.DisplayNameFor(model => model.CreatedAt)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.created_at)
+            @Html.DisplayFor(model => model.CreatedAt)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.updated_at)
+            @Html.DisplayNameFor(model => model.UpdatedAt)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.updated_at)
+            @Html.DisplayFor(model => model.UpdatedAt)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AuthorID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AuthorID)
-        </dd>
 
     </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
     @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Buy In Cash", "Create", controllerName: "OfferCash", routeValues: new { itemId = Model.id })
+    @Html.ActionLink("Buy In Exchange", "Create", controllerName: "OfferExchange", routeValues: new { itemId = Model.id })
 </p>

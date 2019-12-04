@@ -6,130 +6,120 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BlueberrySwap;
 using BlueberrySwap.Models;
 
 namespace BlueberrySwap.Controllers
 {
-    public class ItemsController : Controller
+    public class OffersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-
-
-        
-        // GET: Items
-        public ActionResult Index(int categoryId)
+        // GET: Offers
+        public ActionResult Index()
         {
-            var items = db.Items.Include(i => i.Category).Include(i => i.Unit).
-                Where(i => i.CategoryID == categoryId);
-
-           
-            return View(items.ToList());
+            var offers = db.Offers.Include(o => o.Offer_Cash).Include(o => o.Offer_Exchange);
+            return View(offers.ToList());
         }
 
-        // GET: Items/Details/5
+        // GET: Offers/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Item item = db.Items.Find(id);
-            if (item == null)
+            Offer offer = db.Offers.Find(id);
+            if (offer == null)
             {
                 return HttpNotFound();
             }
-            return View(item);
+            return View(offer);
         }
 
-        // GET: Items/Create
+        // GET: Offers/Create
         public ActionResult Create()
         {
-            ViewBag.CategoryID = new SelectList(db.Categories, "id", "name");
-            ViewBag.UnitID = new SelectList(db.Units, "id", "name");
+            ViewBag.OfferId = new SelectList(db.CashOffers, "OfferCashId", "OfferCashId");
+            ViewBag.OfferId = new SelectList(db.ExchangeOffers, "OfferExchangeId", "OfferExchangeId");
             return View();
         }
 
-        // POST: Items/Create
+        // POST: Offers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,name,price,description,created_at,updated_at,CategoryID,UnitID,AuthorID")] Item item)
+        public ActionResult Create([Bind(Include = "OfferId,ItemId,OfferedByAuthorId,Qty,CreatedAt,UpdatedAt")] Offer offer)
         {
             if (ModelState.IsValid)
             {
-                item.CreatedAt= DateTime.Now;
-                item.UpdatedAt = DateTime.Now;
-                
-                db.Items.Add(item);
+                db.Offers.Add(offer);
                 db.SaveChanges();
-                return RedirectToAction("Index", routeValues:new {categoryId = item.CategoryID});
+                return RedirectToAction("Index");
             }
 
-            ViewBag.CategoryID = new SelectList(db.Categories, "id", "name", item.CategoryID);
-            ViewBag.UnitID = new SelectList(db.Units, "id", "name", item.UnitID);
-            return View(item);
+            ViewBag.OfferId = new SelectList(db.CashOffers, "OfferCashId", "OfferCashId", offer.OfferId);
+            ViewBag.OfferId = new SelectList(db.ExchangeOffers, "OfferExchangeId", "OfferExchangeId", offer.OfferId);
+            return View(offer);
         }
 
-        // GET: Items/Edit/5
+        // GET: Offers/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Item item = db.Items.Find(id);
-            if (item == null)
+            Offer offer = db.Offers.Find(id);
+            if (offer == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CategoryID = new SelectList(db.Categories, "id", "name", item.CategoryID);
-            ViewBag.UnitID = new SelectList(db.Units, "id", "name", item.UnitID);
-            return View(item);
+            ViewBag.OfferId = new SelectList(db.CashOffers, "OfferCashId", "OfferCashId", offer.OfferId);
+            ViewBag.OfferId = new SelectList(db.ExchangeOffers, "OfferExchangeId", "OfferExchangeId", offer.OfferId);
+            return View(offer);
         }
 
-        // POST: Items/Edit/5
+        // POST: Offers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,name,price,description,created_at,updated_at,CategoryID,UnitID,AuthorID")] Item item)
+        public ActionResult Edit([Bind(Include = "OfferId,ItemId,OfferedByAuthorId,Qty,CreatedAt,UpdatedAt")] Offer offer)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(item).State = EntityState.Modified;
+                db.Entry(offer).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryID = new SelectList(db.Categories, "id", "name", item.CategoryID);
-            ViewBag.UnitID = new SelectList(db.Units, "id", "name", item.UnitID);
-            return View(item);
+            ViewBag.OfferId = new SelectList(db.CashOffers, "OfferCashId", "OfferCashId", offer.OfferId);
+            ViewBag.OfferId = new SelectList(db.ExchangeOffers, "OfferExchangeId", "OfferExchangeId", offer.OfferId);
+            return View(offer);
         }
 
-        // GET: Items/Delete/5
+        // GET: Offers/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Item item = db.Items.Find(id);
-            if (item == null)
+            Offer offer = db.Offers.Find(id);
+            if (offer == null)
             {
                 return HttpNotFound();
             }
-            return View(item);
+            return View(offer);
         }
 
-        // POST: Items/Delete/5
+        // POST: Offers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Item item = db.Items.Find(id);
-            db.Items.Remove(item);
+            Offer offer = db.Offers.Find(id);
+            db.Offers.Remove(offer);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

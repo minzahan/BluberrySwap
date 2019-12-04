@@ -1,10 +1,16 @@
-namespace BlueberrySwap
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Spatial;
+using BlueberrySwap.Models;
+using System.Linq;
+using System.Web;
+
+
+namespace BlueberrySwap.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+    
 
     [Table("Category")]
     public partial class Category
@@ -21,11 +27,13 @@ namespace BlueberrySwap
 
         [Required]
         [StringLength(25)]
-        public string name { get; set; }
+        [Column(name: "name")]
+        public string Name { get; set; }
 
         [Required]
         [StringLength(15)]
-        public string icon { get; set; }
+        [Column(name: "icon")]
+        public string Icon { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Item> Items { get; set; }
