@@ -1,49 +1,25 @@
-﻿
+﻿@model IEnumerable<BlueberrySwap.Category>
+
 @{
     ViewBag.Title = "Home Page";
 }
 
 
 <div class="container">
-    <div class="row">
+<div class="row">
+    @foreach (var item in Model)
+    {
         <div class="card col-md-4" style="text-align: center">
-            <a href="#"><span style="font-size: 5em;"><i class="fas fa-apple-alt" style="color: green;"></i></span></a>
+            <a href="#"><span style="font-size: 5em;"><i class="fas @Html.DisplayFor(modelItem => item.icon)" style="color: green;"></i></span></a>
             <div class="card-body">
-                <a href="#">Fruits</a>
+                <a href="#">@Html.DisplayFor(modelItem => item.name)</a>
             </div>
-        </div>
-        <div class="card col-md-4" style="text-align: center">
-            <a href="#"><span style="font-size: 5em;"><i class="fas fa-carrot" style="color: orangered"></i></span></a>
-            <div class="card-body">
-                <a href="#">Vegetables</a>
-            </div>
-        </div>
-        <div class="card col-md-4" style="text-align: center">
-            <a href="#"><span style="font-size: 5em;"><i class="fas fa-apple-alt" style="color: green;"></i></span></a>
-            <div class="card-body">
-                <a href="#">Fruits</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="row" style="margin-top: 20px;">
-        <div class="card col-md-4" style="text-align: center">
-            <a href="#"><span style="font-size: 5em;"><i class="fas fa-tools" style="color: orange"></i></span></a>
-            <div class="card-body">
-                <a href="#">Tools</a>
-            </div>
-        </div>
-        <div class="card col-md-4" style="text-align: center">
-            <a href="#"><span style="font-size: 5em;"><i class="fas fa-gem" style="color: firebrick"></i></span></a>
-            <div class="card-body">
-                <a href="#">Jewelry</a>
-            </div>
-        </div>
-        <div class="card col-md-4" style="text-align: center">
-            <a href="#"><span style="font-size: 5em;"><i class="fas fa-chair" style="color: saddlebrown"></i></span></a>
-            <div class="card-body">
-                <a href="#">Furniture</a>
-            </div>
-        </div>
-    </div>
+            @Html.ActionLink(item.name,"Index",controllerName:"Items",routeValues:new {categoryId =  item.id},htmlAttributes:null);
+                
+            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+        </div>   
+    }
+</div>
 </div>

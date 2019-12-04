@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace BlueberrySwap
 {
     using System;
@@ -15,27 +17,26 @@ namespace BlueberrySwap
 
         [Required]
         [StringLength(50)]
-        public string name { get; set; }
+        public string Name { get; set; }
 
-        public double price { get; set; }
+        public double Price { get; set; }
 
         [Column(TypeName = "text")]
-        public string description { get; set; }
+        public string Description { get; set; }
 
         public DateTime created_at { get; set; }
 
-        [Column(TypeName = "timestamp")]
-        [MaxLength(8)]
-        [Timestamp]
-        public byte[] updated_at { get; set; }
+        [DisplayName("Last Updated")]
+        public DateTime updated_at { get; set; }
 
         public int CategoryID { get; set; }
         public virtual Category Category { get; set; }
 
+        [DisplayName("Unit")]
         public int UnitID { get; set; }
         public virtual Unit Unit { get; set; }
 
-        public int AuthorID { get; set; }
+        
         public virtual ApplicationUser Author { get; set; }
 
     }

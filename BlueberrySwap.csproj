@@ -182,6 +182,10 @@
     <Compile Include="Migrations\201912031917008_FromTheBeginning.Designer.cs">
       <DependentUpon>201912031917008_FromTheBeginning.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912032348518_ChangedUpdatedAtToDateTime.cs" />
+    <Compile Include="Migrations\201912032348518_ChangedUpdatedAtToDateTime.Designer.cs">
+      <DependentUpon>201912032348518_ChangedUpdatedAtToDateTime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -285,6 +289,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201912031917008_FromTheBeginning.resx">
       <DependentUpon>201912031917008_FromTheBeginning.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912032348518_ChangedUpdatedAtToDateTime.resx">
+      <DependentUpon>201912032348518_ChangedUpdatedAtToDateTime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

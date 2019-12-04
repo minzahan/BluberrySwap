@@ -11,6 +11,7 @@ using BlueberrySwap.Models;
 
 namespace BlueberrySwap.Controllers
 {
+    
     public class CategoriesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
