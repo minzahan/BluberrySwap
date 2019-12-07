@@ -10,6 +10,7 @@ using BlueberrySwap.Models;
 
 namespace BlueberrySwap.Controllers
 {
+    [Authorize]
     public class OfferCashController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -17,8 +18,75 @@ namespace BlueberrySwap.Controllers
         // GET: OfferCash
         public ActionResult Index()
         {
-            var cashOffers = db.CashOffers.Include(o => o.Offer);
-            return View(cashOffers.ToList());
+            var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            var units = db.Units.ToList();
+            var cashOffers = db.CashOffers.Include(o => o.Offer).
+                Where(o => o.Offer.OfferedByAuthorId == user.Id).ToList();
+
+            var offeredByIds = cashOffers.Select(c => c.Offer.OfferedByAuthorId).ToList();
+            var offerMakers = db.Users.Where(u => offeredByIds.Contains(u.Id)).ToList();
+
+            foreach (var cashOffer in cashOffers)
+            {
+                cashOffer.Offer.OfferedByName = offerMakers.
+                First(m => m.Id == cashOffer.Offer.OfferedByAuthorId).FirstName;
+                cashOffer.UnitName = units.First(u => u.id == cashOffer.Unit_id.GetValueOrDefault()).Name;
+            }
+            return View(cashOffers);
+        }
+
+
+        public ActionResult Accept(int id)
+        {
+            var acceptedOfferTransaction = new Transaction
+            {
+                OfferId = id,
+                Accepted = true,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now,
+                RejectionReason="NA"
+            };
+
+            db.Transactions.Add(acceptedOfferTransaction);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Transactions");
+        }
+
+        public ActionResult Reject(int id)
+        {
+            var acceptedOfferTransaction = new Transaction
+            {
+                OfferId = id,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now,
+                RejectionReason="Rejected-new feature"
+            };
+
+            db.Transactions.Add(acceptedOfferTransaction);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Transactions");
+        }
+
+        public ActionResult CashOffersToMe()
+        {
+            var completedTransactionOfferIds = db.Transactions.Select(t => t.OfferId).ToList();
+            var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            var units = db.Units.ToList();
+
+            var cashOffers = db.CashOffers.Include(o => o.Offer).
+                Where(o => o.Offer.OfferedByAuthorId != user.Id).
+                ToList().Where(o => !completedTransactionOfferIds.Contains(o.OfferId)).ToList();
+
+            var offeredByIds = cashOffers.Select(c => c.Offer.OfferedByAuthorId).ToList();
+            var offerMakers = db.Users.Where(u => offeredByIds.Contains(u.Id)).ToList();
+
+            foreach (var cashOffer in cashOffers)
+            {
+                cashOffer.Offer.OfferedByName = offerMakers.
+                First(m => m.Id == cashOffer.Offer.OfferedByAuthorId).FirstName;
+                cashOffer.UnitName = units.First(u => u.id == cashOffer.Unit_id.GetValueOrDefault()).Name;
+            }
+            return View("Index",cashOffers);
         }
 
         // GET: OfferCash/Details/5
@@ -37,10 +105,17 @@ namespace BlueberrySwap.Controllers
         }
 
         // GET: OfferCash/Create
-        public ActionResult Create()
+        public ActionResult Create(int itemId, string description)
         {
-            ViewBag.OfferCashId = new SelectList(db.Offers, "OfferId", "OfferedByAuthorId");
-            return View();
+            ViewBag.UnitID = new SelectList(db.Units, "id", "name");
+            ViewBag.ItemId = itemId;
+            
+            var model = new OfferCashViewModel
+            {
+                ItemDescription = description
+            };
+
+            return View(model);
         }
 
         // POST: OfferCash/Create
@@ -48,17 +123,43 @@ namespace BlueberrySwap.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "OfferCashId,CashValue,CreatedAt,UpdatedAt,Unit_id,OfferId")] Offer_Cash offer_Cash)
+        //[Bind(Include = "OfferCashId,CashValue,CreatedAt,UpdatedAt,Unit_id,OfferId")]
+        public ActionResult Create(OfferCashViewModel model)
         {
             if (ModelState.IsValid)
             {
-                db.CashOffers.Add(offer_Cash);
+                var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+                var offer = new Offer
+                {
+                    ItemId = model.ItemId,
+                    Qty = model.Quantity,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    OfferedByAuthorId=user.Id
+                };
+
+
+                db.Offers.Add(offer);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                var currentOffer = db.Offers.FirstOrDefault(o => o.OfferId == offer.OfferId);
+                var offerCash = new Offer_Cash
+                {
+                    Offer = currentOffer,
+                    CashValue = model.CashValue,
+                    Unit_id = model.UnitID,
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    OfferCashId = currentOffer.OfferId,
+                    OfferId = currentOffer.OfferId
+                };
+                db.CashOffers.Add(offerCash);
+                db.SaveChanges();
+                
+                return RedirectToAction("Index","Home");
             }
 
-            ViewBag.OfferCashId = new SelectList(db.Offers, "OfferId", "OfferedByAuthorId", offer_Cash.OfferCashId);
-            return View(offer_Cash);
+           // ViewBag.OfferCashId = new SelectList(db.Offers, "OfferId", "OfferedByAuthorId", offer_Cash.OfferCashId);
+            return View();
         }
 
         // GET: OfferCash/Edit/5

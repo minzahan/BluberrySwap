@@ -12,7 +12,7 @@ namespace BlueberrySwap.Models
     public partial class Transaction
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column(name: "transaction_id")]
         public int TransactionId { get; set; }
 
@@ -33,5 +33,8 @@ namespace BlueberrySwap.Models
         public DateTime UpdatedAt { get; set; }
 
         public virtual Offer Offer { get; set; }
+
+        [NotMapped]
+        public string Remarks { get; set; }
     }
 }

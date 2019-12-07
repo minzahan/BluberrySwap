@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BlueberrySwap.Category>
+﻿@model IEnumerable<BlueberrySwap.Models.Category>
 
 @{
     ViewBag.Title = "Home Page";
@@ -9,17 +9,21 @@
 <div class="row">
     @foreach (var item in Model)
     {
-        <div class="card col-md-4" style="text-align: center">
-            <a href="#"><span style="font-size: 5em;"><i class="fas @Html.DisplayFor(modelItem => item.icon)" style="color: green;"></i></span></a>
-            <div class="card-body">
-                <a href="#">@Html.DisplayFor(modelItem => item.name)</a>
-            </div>
-            @Html.ActionLink(item.name,"Index",controllerName:"Items",routeValues:new {categoryId =  item.id},htmlAttributes:null);
-                
-            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.id }) |
+    <div class="card col-md-4" style="text-align: center">
+        <a href="#"><span style="font-size: 5em"><i class="fas @Html.DisplayFor(modelItem => item.Icon)" style="color: green;"></i></span></a>
+        <div class="card-body">
+         @Html.ActionLink(item.Name, "Index", controllerName: "Items", routeValues: new { categoryId = item.id }, htmlAttributes: null)
+        </div>
+
+
+        @if (User.IsInRole("admin"))
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = item.id }) <text>|</text>
+            @Html.ActionLink("Details", "Details", new { id = item.id }) <text>|</text>
             @Html.ActionLink("Delete", "Delete", new { id = item.id })
-        </div>   
+        }
+               
+    </div>   
     }
 </div>
 </div>

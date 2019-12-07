@@ -6,7 +6,7 @@ using System.Data.Entity.Spatial;
 using BlueberrySwap.Models;
 using System.Linq;
 using System.Web;
-
+using System.ComponentModel;
 
 namespace BlueberrySwap.Models
 {
@@ -28,6 +28,7 @@ namespace BlueberrySwap.Models
         [Required]
         [StringLength(25)]
         [Column(name: "name")]
+        [DisplayName("Category Name")]
         public string Name { get; set; }
 
         [Required]

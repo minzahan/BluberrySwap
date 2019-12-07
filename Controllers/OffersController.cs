@@ -17,7 +17,7 @@ namespace BlueberrySwap.Controllers
         // GET: Offers
         public ActionResult Index()
         {
-            var offers = db.Offers.Include(o => o.Offer_Cash).Include(o => o.Offer_Exchange);
+            var offers = db.Offers;//.Include(o => o.Offer_Cash).Include(o => o.Offer_Exchange);
             return View(offers.ToList());
         }
 

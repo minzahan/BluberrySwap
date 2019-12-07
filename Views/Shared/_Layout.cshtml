@@ -6,7 +6,10 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
     <script src="https://kit.fontawesome.com/f63269470c.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/datatables.min.css">
+    <script src="~/Content/datatables.min.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -21,7 +24,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Categories", "Index", "Categories")</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Cash Offers", "CashOffersToMe", "OfferCash", new { }, new { })</li>
+                        <li>@Html.ActionLink("Exchange Offers", "ExchangeOffersToMe", "OfferExchange", new { }, new { })</li>
+                    }
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
@@ -36,8 +43,6 @@
             <p>&copy; @DateTime.Now.Year - BlueberrySwap</p>
         </footer>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,6 +18,7 @@ namespace BlueberrySwap.Models
         }
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column(name: "offer_id")]
         public int OfferId { get; set; }
 
@@ -26,7 +28,12 @@ namespace BlueberrySwap.Models
         [Required]
         [StringLength(128)]
         [Column(name: "offeredby_author_id")]
+        [DisplayName("Offered By")]
         public string OfferedByAuthorId { get; set; }
+
+        [NotMapped]
+        [DisplayName("Offered By")]
+        public string OfferedByName { get; set; }
 
         [Column(name: "qty")]
         public double Qty { get; set; }
@@ -37,15 +44,9 @@ namespace BlueberrySwap.Models
         [Column(name: "updated_at")]
         public DateTime UpdatedAt { get; set; }
 
-
-        //public int OfferCashId { get; set; }
-
-        
+      
         public virtual Offer_Cash Offer_Cash { get; set; }
 
-       // public int OfferExchangeId { get; set; }
-
-        
         public virtual Offer_Exchange Offer_Exchange { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -1,12 +1,71 @@
-namespace BlueberrySwap.Migrations
+﻿namespace BlueberrySwap.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class ResettingModelGeneration : DbMigration
+    public partial class InitialDb : DbMigration
     {
         public override void Up()
         {
+            CreateTable(
+                "dbo.Offer_Cash",
+                c => new
+                    {
+                        offer_cash_id = c.Int(nullable: false),
+                        cash_value = c.Double(nullable: false),
+                        created_at = c.DateTime(nullable: false),
+                        updated_at = c.DateTime(nullable: false),
+                        Unit_id = c.Int(),
+                        offer_id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.offer_cash_id)
+                .ForeignKey("dbo.Offer", t => t.offer_cash_id)
+                .Index(t => t.offer_cash_id);
+            
+            CreateTable(
+                "dbo.Offer",
+                c => new
+                    {
+                        offer_id = c.Int(nullable: false, identity: true),
+                        item_id = c.Int(nullable: false),
+                        offeredby_author_id = c.String(nullable: false, maxLength: 128),
+                        qty = c.Double(nullable: false),
+                        created_at = c.DateTime(nullable: false),
+                        updated_at = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.offer_id);
+            
+            CreateTable(
+                "dbo.Offer_Exchange",
+                c => new
+                    {
+                        offer_exchange_id = c.Int(nullable: false),
+                        created_at = c.DateTime(nullable: false),
+                        updated_at = c.DateTime(nullable: false),
+                        exchange_item_id = c.Int(nullable: false),
+                        exchange_item_qty = c.Double(nullable: false),
+                        exchange_item_unit_id = c.Int(nullable: false),
+                        offer_id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.offer_exchange_id)
+                .ForeignKey("dbo.Offer", t => t.offer_exchange_id)
+                .Index(t => t.offer_exchange_id);
+            
+            CreateTable(
+                "dbo.Transaction",
+                c => new
+                    {
+                        transaction_id = c.Int(nullable: false),
+                        offer_id = c.Int(nullable: false),
+                        accepted = c.Boolean(nullable: false),
+                        rejection_reason = c.String(nullable: false),
+                        created_at = c.DateTime(nullable: false),
+                        updated_at = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.transaction_id)
+                .ForeignKey("dbo.Offer", t => t.offer_id, cascadeDelete: true)
+                .Index(t => t.offer_id);
+            
             CreateTable(
                 "dbo.Category",
                 c => new
@@ -29,16 +88,15 @@ namespace BlueberrySwap.Migrations
                         updated_at = c.DateTime(nullable: false),
                         CategoryID = c.Int(nullable: false),
                         UnitID = c.Int(nullable: false),
-                        Author_Id = c.String(maxLength: 128),
-                        Author_Id1 = c.String(maxLength: 128),
+                        Author_Id = c.String(nullable: false, maxLength: 128)
                     })
                 .PrimaryKey(t => t.id)
-                .ForeignKey("dbo.AspNetUsers", t => t.Author_Id1)
+                .ForeignKey("dbo.AspNetUsers", t => t.Author_Id)
                 .ForeignKey("dbo.Category", t => t.CategoryID, cascadeDelete: true)
                 .ForeignKey("dbo.Unit", t => t.UnitID, cascadeDelete: true)
                 .Index(t => t.CategoryID)
                 .Index(t => t.UnitID)
-                .Index(t => t.Author_Id1);
+                .Index(t => t.Author_Id);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -114,65 +172,6 @@ namespace BlueberrySwap.Migrations
                 .PrimaryKey(t => t.id);
             
             CreateTable(
-                "dbo.Offer_Cash",
-                c => new
-                    {
-                        offer_cash_id = c.Int(nullable: false),
-                        cash_value = c.Double(nullable: false),
-                        created_at = c.DateTime(nullable: false),
-                        updated_at = c.DateTime(nullable: false),
-                        Unit_id = c.Int(),
-                        offer_id = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.offer_cash_id)
-                .ForeignKey("dbo.Offer", t => t.offer_cash_id)
-                .Index(t => t.offer_cash_id);
-            
-            CreateTable(
-                "dbo.Offer",
-                c => new
-                    {
-                        offer_id = c.Int(nullable: false, identity: true),
-                        item_id = c.Int(nullable: false),
-                        offeredby_author_id = c.String(nullable: false, maxLength: 128),
-                        qty = c.Double(nullable: false),
-                        created_at = c.DateTime(nullable: false),
-                        updated_at = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.offer_id);
-            
-            CreateTable(
-                "dbo.Offer_Exchange",
-                c => new
-                    {
-                        offer_exchange_id = c.Int(nullable: false),
-                        created_at = c.DateTime(nullable: false),
-                        updated_at = c.DateTime(nullable: false),
-                        exchange_item_id = c.Int(nullable: false),
-                        exchange_item_qty = c.Double(nullable: false),
-                        exchange_item_unit_id = c.Int(nullable: false),
-                        offer_id = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.offer_exchange_id)
-                .ForeignKey("dbo.Offer", t => t.offer_exchange_id)
-                .Index(t => t.offer_exchange_id);
-            
-            CreateTable(
-                "dbo.Transaction",
-                c => new
-                    {
-                        transaction_id = c.Int(nullable: false),
-                        offer_id = c.Int(nullable: false),
-                        accepted = c.Boolean(nullable: false),
-                        rejection_reason = c.String(nullable: false),
-                        created_at = c.DateTime(nullable: false),
-                        updated_at = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.transaction_id)
-                .ForeignKey("dbo.Offer", t => t.offer_id, cascadeDelete: true)
-                .Index(t => t.offer_id);
-            
-            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -187,19 +186,16 @@ namespace BlueberrySwap.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Offer_Cash", "offer_cash_id", "dbo.Offer");
-            DropForeignKey("dbo.Transaction", "offer_id", "dbo.Offer");
-            DropForeignKey("dbo.Offer_Exchange", "offer_exchange_id", "dbo.Offer");
             DropForeignKey("dbo.Item", "UnitID", "dbo.Unit");
             DropForeignKey("dbo.Item", "CategoryID", "dbo.Category");
             DropForeignKey("dbo.Item", "Author_Id1", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Offer_Cash", "offer_cash_id", "dbo.Offer");
+            DropForeignKey("dbo.Transaction", "offer_id", "dbo.Offer");
+            DropForeignKey("dbo.Offer_Exchange", "offer_exchange_id", "dbo.Offer");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.Transaction", new[] { "offer_id" });
-            DropIndex("dbo.Offer_Exchange", new[] { "offer_exchange_id" });
-            DropIndex("dbo.Offer_Cash", new[] { "offer_cash_id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
@@ -208,11 +204,10 @@ namespace BlueberrySwap.Migrations
             DropIndex("dbo.Item", new[] { "Author_Id1" });
             DropIndex("dbo.Item", new[] { "UnitID" });
             DropIndex("dbo.Item", new[] { "CategoryID" });
+            DropIndex("dbo.Transaction", new[] { "offer_id" });
+            DropIndex("dbo.Offer_Exchange", new[] { "offer_exchange_id" });
+            DropIndex("dbo.Offer_Cash", new[] { "offer_cash_id" });
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.Transaction");
-            DropTable("dbo.Offer_Exchange");
-            DropTable("dbo.Offer");
-            DropTable("dbo.Offer_Cash");
             DropTable("dbo.Unit");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
@@ -220,6 +215,10 @@ namespace BlueberrySwap.Migrations
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.Item");
             DropTable("dbo.Category");
+            DropTable("dbo.Transaction");
+            DropTable("dbo.Offer_Exchange");
+            DropTable("dbo.Offer");
+            DropTable("dbo.Offer_Cash");
         }
     }
 }

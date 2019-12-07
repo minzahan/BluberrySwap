@@ -1,0 +1,81 @@
+﻿@model BlueberrySwap.Models.Offer_Exchange
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Offer_Exchange</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Offer.OfferedByAuthorId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Offer.OfferedByAuthorId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExchangeItemId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExchangeItemId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExchangeItemQty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExchangeItemQty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExchangeItemUnitId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExchangeItemUnitId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OfferId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OfferId)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

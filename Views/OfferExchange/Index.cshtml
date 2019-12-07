@@ -1,0 +1,55 @@
+﻿@model IEnumerable<BlueberrySwap.Models.Offer_Exchange>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Would you like to make an exchange?</h2>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Offer.OfferedByName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdatedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExchangeItemId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExchangeItemQty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExchangeItemUnitName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Offer.OfferedByName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExchangeItemId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Offer.Qty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExchangeItemUnitName)
+        </td>
+        <td>
+            @Html.ActionLink("Accept", "Accept", "OfferExchange", new { id = item.OfferId }, new { })<text>|</text>
+            @Html.ActionLink("Reject", "Reject", "OfferExchange", new { id = item.OfferId }, new { })
+
+        </td>
+    </tr>
+}
+
+</table>

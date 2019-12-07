@@ -11,6 +11,7 @@ using BlueberrySwap.Models;
 
 namespace BlueberrySwap.Controllers
 {
+    [Authorize]
     public class ItemsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -21,11 +22,27 @@ namespace BlueberrySwap.Controllers
         // GET: Items
         public ActionResult Index(int categoryId)
         {
-            var items = db.Items.Include(i => i.Category).Include(i => i.Unit).
-                Where(i => i.CategoryID == categoryId);
+            var loggedinUser = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            var items = db.Items.Include(i => i.Category).
+                Include(i => i.Unit).
+                Where(i => i.CategoryID == categoryId ).ToList();
 
-           
-            return View(items.ToList());
+            var itemPosters = items.Select(i => i.Author_Id).ToList();
+            var users = db.Users.Where(u => itemPosters.Contains(u.Id)).ToList();
+            ApplicationUser itemPoster = null;
+            List<Item> filteredItems = new List<Item>();
+            foreach (var item in items)
+            {
+                itemPoster= users.FirstOrDefault(u => u.Id == item.Author_Id);
+                if(itemPoster.Zipcode==loggedinUser.Zipcode)
+                {
+                    item.Author = itemPoster;
+                    item.CanBeEdited = item.Author.Id == loggedinUser.Id;
+                    filteredItems.Add(item);
+                }
+                
+            }
+            return View(filteredItems);
         }
 
         // GET: Items/Details/5
@@ -62,6 +79,9 @@ namespace BlueberrySwap.Controllers
             {
                 item.CreatedAt= DateTime.Now;
                 item.UpdatedAt = DateTime.Now;
+
+                var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+                item.Author_Id = user.Id;
                 
                 db.Items.Add(item);
                 db.SaveChanges();
@@ -95,13 +115,19 @@ namespace BlueberrySwap.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,name,price,description,created_at,updated_at,CategoryID,UnitID,AuthorID")] Item item)
+        public ActionResult Edit(Item item)
         {
             if (ModelState.IsValid)
             {
+                item.CreatedAt = item.CreatedAt;
+                item.UpdatedAt = DateTime.Now;
+
+                var user = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+                item.Author_Id = user.Id;
+
                 db.Entry(item).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index",new { categoryId = item.CategoryID });
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "id", "name", item.CategoryID);
             ViewBag.UnitID = new SelectList(db.Units, "id", "name", item.UnitID);

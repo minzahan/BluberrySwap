@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BlueberrySwap.Category>
+﻿@model IEnumerable<BlueberrySwap.Models.Category>
 
 @{
     ViewBag.Title = "Index";
@@ -18,13 +18,18 @@
         @foreach (var item in Model)
         {
         <div class="card col-md-4" style="text-align: center">
-            <a href="#"><span style="font-size: 5em;"><i class="fas @Html.DisplayFor(modelItem => item.icon)" style="color: green;"></i></span></a>
+            <a href="#"><span style="font-size: 5em;"><i class="fas @Html.DisplayFor(modelItem => item.Icon)" style="color: green;"></i></span></a>
             <div class="card-body">
-                <a href="#">@Html.DisplayFor(modelItem => item.name)</a>
+                <a href="#">@Html.DisplayFor(modelItem => item.Name)</a>
             </div>
-            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            @Html.ActionLink(item.Name, "Index", "Items", new { categoryId = item.id }, new { })
+            @if (User.IsInRole("admin"))
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            }
+
         </div>   
         }
     </div>

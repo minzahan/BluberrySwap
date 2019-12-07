@@ -1,0 +1,75 @@
+﻿@model BlueberrySwap.Models.Offer_Exchange
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Offer_Exchange</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Offer.OfferedByAuthorId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Offer.OfferedByAuthorId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExchangeItemId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExchangeItemId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExchangeItemQty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExchangeItemQty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExchangeItemUnitId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExchangeItemUnitId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OfferId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OfferId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.OfferExchangeId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

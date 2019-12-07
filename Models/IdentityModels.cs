@@ -42,6 +42,7 @@ namespace BlueberrySwap.Models
         
         public DbSet<Unit> Units { get; set; }
 
+        public DbSet<Transaction> Transactions { get; set; }
         public ApplicationDbContext()
             : base("minzah", throwIfV1Schema: false)
         {

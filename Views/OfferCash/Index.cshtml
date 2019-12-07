@@ -5,15 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<h2>Would you like to sell an item?</h2>
+<br />
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Offer.OfferedByAuthorId)
+            @Html.DisplayNameFor(model => model.Offer.OfferedByName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CashValue)
@@ -25,10 +22,10 @@
             @Html.DisplayNameFor(model => model.UpdatedAt)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Unit_id)
+            @Html.DisplayNameFor(model => model.UnitName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.OfferId)
+            @Html.DisplayNameFor(model => model.Offer.Qty)
         </th>
         <th></th>
     </tr>
@@ -36,7 +33,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Offer.OfferedByAuthorId)
+            @Html.DisplayFor(modelItem => item.Offer.OfferedByName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CashValue)
@@ -48,15 +45,14 @@
             @Html.DisplayFor(modelItem => item.UpdatedAt)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Unit_id)
+            @Html.DisplayFor(modelItem => item.UnitName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.OfferId)
+            @Html.DisplayFor(modelItem => item.Offer.Qty)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.OfferCashId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.OfferCashId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.OfferCashId })
+            @Html.ActionLink("Accept", "Accept", "OfferCash", new { id = item.OfferId }, new { }) <text>|</text>
+            @Html.ActionLink("Reject", "Reject", "OfferCash", new { id = item.OfferId }, new { })
         </td>
     </tr>
 }

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<BlueberrySwap.Models.Transaction>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Offer.OfferedByName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </th>
+
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.CreatedAt)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Offer.OfferedByName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Remarks)
+    </td>
+
+
+</tr>
+}
+
+</table>
